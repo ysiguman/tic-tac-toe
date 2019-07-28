@@ -1,42 +1,33 @@
 <template>
     <div class="case" @click="select()">
-        <span>{{ token }}</span>
+        <span>{{ grid[index] }}</span>
     </div>
 </template>
 
 <script>
-    import { mapGetters, mapMutations } from 'vuex';
+    import { mapGetters, mapActions } from 'vuex';
   export default {
     name: "Case",
-    computed: {
-      ...mapGetters(['grid', 'players']),
-    },
-    data: () =>  ({
-      token: null,
-    }),
     props: {
         index: {
-          type: String,
+          type: Number,
         }
     },
     methods: {
-      ...mapMutations(['SET_CASE', 'CHANGE_PLAYERS']),
+      ...mapActions(['setCase']),
       select() {
-        if(!this.token) {
-          this.token = this.players[0];
-          this.SET_CASE(this.index);
-          this.CHANGE_PLAYERS();
+        if(!this.grid[this.index]) {
+          this.setCase(this.index);
         }
       }
-    }
+    },
+    computed: {
+      ...mapGetters(['grid', 'players']),
+    },
   }
 </script>
 
 <style scoped>
-    .toto {
-        font-size: 0.1em;
-    }
-
     .case {
         border-radius: 4px;
         box-shadow: 3px 3px 0 #666;

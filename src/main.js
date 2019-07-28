@@ -24,13 +24,17 @@ const store = new Vuex.Store({
   },
   mutations: {
      SET_CASE(state, index) {
-       let grid = state.grid;
-       grid[index] = state.players[0];
-       state.grid = grid;
+       Vue.set(state.grid, index, state.players[0]);
      },
     CHANGE_PLAYERS(state) {
        let players = state.players;
-       state.players = [players[1], players[0]];
+       Vue.set(state, 'players', [players[1], players[0]]);
+    }
+  },
+  actions: {
+    setCase({ commit }, index) {
+      commit('SET_CASE', index);
+      commit('CHANGE_PLAYERS');
     }
   }
 });
