@@ -82,7 +82,7 @@ const store = new Vuex.Store({
         });
       }
     },
-    resetGame({ commit }) {
+    resetGame() {
       this.commit('RESET');
     }
   }
